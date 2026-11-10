@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vinayak Namkeen - Online Store</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f3f6;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #2874f0;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 5%;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo-area h1 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .logo-area p {
+      margin: 0;
+      font-size: 11px;
+      color: #ffde00;
+    }
+
+    .nav-icons {
+      display: flex;
+      gap: 20px;
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .nav-icons a {
+      color: white;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .nav-icons a:hover {
+      color: #ffde00;
+    }
+
+    .main-container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 20px auto;
+    }
+
+    h2 {
+      color: #333;
+      font-size: 20px;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 8px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    .product-card {
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 25px 20px;
+      text-align: center;
+      position: relative;
+      transition: 0.2s;
+    }
+
+    .product-card:hover {
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      transform: translateY(-4px);
+    }
+
+    .wishlist-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      color: #c2c2c2;
+    }
+
+    /* Updated Image Size: Height is now greater than Width */
+    .product-card img {
+      width: 130px;
+      height: 190px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin: 10px auto 15px;
+      display: block;
+    }
+
+    .product-card h3 {
+      margin: 10px 0 6px;
+      font-size: 18px;
+      color: #212121;
+    }
+
+    .weight {
+      color: #878787;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .price {
+      color: #388e3c;
+      font-weight: bold;
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    .add-to-cart-btn {
+      background-color: #ff9f00;
+      color: white;
+      border: none;
+      width: 100%;
+      padding: 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 15px;
+    }
+
+    .add-to-cart-btn:hover {
+      background-color: #fb641b;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #172337;
+      color: white;
+      margin-top: 40px;
+      font-size: 14px;
+    }
+
+    @media(max-width: 600px) {
+      header {
+        padding: 12px 3%;
+        gap: 10px;
+      }
+
+      .logo-area h1 {
+        font-size: 17px;
+      }
+
+      .nav-icons {
+        gap: 10px;
+        font-size: 12px;
+      }
+
+      .main-container {
+        width: 92%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo-area">
+      <h1>Vinayak Namkeen</h1>
+      <p>Fresh, Crispy & Delicious Snacks!</p>
+    </div>
+
+    <div class="nav-icons">
+      <a href="wishlist.html">
+        ❤️ Wishlist (<span id="wishlist-count">0</span>)
+      </a>
+      <a href="cart.html">
+        🛒 Cart (<span id="cart-count">0</span>)
+      </a>
+    </div>
+  </header>
+
+  <main class="main-container">
+    <h2>Namkeen Bhandar</h2>
+
+    <!-- PRODUCT LIST (14 Items) -->
+    <div class="product-grid" id="product-grid">
+
+      <!-- 1. Aloo Bhujia -->
+      <div class="product-card"
+        data-name="Aloo Bhujia"
+        data-price="50"
+        data-weight="200g"
+        data-image="images/aloo_bhujiaa.png">
+        <button class="wishlist-btn">♡</button>
+        <img src="images/aloo_bhujiaa.png" alt="Aloo Bhujia">
+        <h3>Aloo Bhujia</h3>
+        <div class="weight">200g</div>
+        <div class="price">₹50</div>
+        <button class="add-to-cart-btn">Add to Cart</button>
+      </div>
+
+      <!-- 2. Ratlami Sev -->
+      <div class="product-card"
+        data-name="Ratlami Sev"
+        data-price="55"
+        data-weight="200g"
+        data-image="images/ratlami_sev.png">
+        <button class="wishlist-btn">♡</button>
+        <img src="images/ratlami_sev.png" alt="Ratlami Sev">
+        <h3>Ratlami Sev</h3>
+        <div class="weight">200g</div>
+        <div class="price">₹55</div>
+        <button class="add-to-cart-btn">Add to Cart</button>
+      </div>
+
+      <!-- 3. Khatta Meetha -->
+      <div class="product-card"
+        data-name="Khatta Meetha"
+        data-price="45"
+        data-weight="200g"
+        data-image="images/khatta_meetha.png">
+        <button class="wishlist-btn">♡</button>
+        <img src="images/khatta_meetha.png" alt="Khatta Meetha">
+        <h3>Khatta Meetha</h3>
+        <div class="weight">200g</div>
+        <div class="price">₹45</div>
+        <button class="add-to-cart-btn">Add to Cart</button>
+      </div>
+
+      <!-- 4. Moong Dal -->
+      <div class="product-card"
+        data-name="Moong Dal"
+        data-price="60"
+        data-weight="200g"
+        data-image="images/moong_dal.png">
+        <button class="wishlist-btn">♡</button>
+        <img src="images/moong_dal.png" alt="Moong Dal">
+        <h3>Moong Dal</h3>
+        <div class="weight">200g</div>
+        <div class="price">₹60</div>
+        <button class="add-to-cart-btn">Add to Cart</button>
+      </div>
+
+      <!-- 5. Chana Dal -->
+      <div class="product-card"
+        data-name="Chana Dal"
+        data-price="50"
+        data-weight="200g"
+        data-image="images/chana_dal.png">
+        <button class="wishlist-btn">♡</button>
+        <img src="images/chana_dal.png" alt="Chana Dal">
+        <h3>Chana Dal</h3>
+        <div class="weight">200g</div>
+        <div class="price">₹50</div>
+        <button class="add-to-cart-btn">Add to Cart</button>
+      </div>
+
+      <!-- 6. Navratan Mix -->
+      <div class="product-card"
+        data-name="Navratan Mix"
+        data-price="65"
+        data-weight="200g"
+        data-image="images/navratan_mix.png"> <!-- Must use underscore and .png -->
+        <button class="wishlist-btn">♡</button>
+        <img src="images/navratan_mix.png" alt="Navratan Mix"> <!-- Must use underscore and .png -->
+        <h3>Navratan Mix</h3>
+        <div class="weight">200g</div>
+        <div class="price">₹65</div>
+        <button class="add-to-cart-btn">Add to Cart</button>
+      </div>
+
+      <!-- 7. Masala Peanuts -->
+      <div class="product-card"
+        data-name="Masala Peanuts"
+        data-price="55"
+        data-weight="200g"
+        data-image="images/masala-peanuts.jpg">
+        <button class="wishlist-btn">♡</button>
+        <img src="images/masala-peanuts.jpg" alt="Masala Peanuts">
+        <h3>Masala Peanuts</h3>
+        <div class="weight">200g</div>
+        <div class="price">₹55</div>
+        <button class="add-to-cart-btn">Add to Cart</button>
+      </div>
+
+      <!-- 8. Nylon Sev -->
+      <div class="product-card"
+        data-name="Nylon Sev"
+        data-price="45"
+        data-weight="200g"
+        data-image="images/nylon-sev.jpg">
+        <button class="wishlist-btn">♡</button>
+        <img src="images/nylon-sev.jpg" alt="Nylon Sev">
+        <h3>Nylon Sev</h3>
+        <div class="weight">200g</div>
+        <div class="price">₹45</div>
+        <button class="add-to-cart-btn">Add to Cart</button>
+      </div>
+
+      <!-- 9. Falahari Mixture -->
+      <div class="product-card"
+        data-name="Falahari Mixture"
+        data-price="70"
+        data-weight="250g"
+        data-image="images/falahari.jpg">
+        <button class="wishlist-btn">♡</button>
+        <img src="images/falahari.jpg" alt="Falahari Mixture">
+        <h3>Falahari Mixture</h3>
+        <div class="weight">250g</div>
+        <div class="price">₹70</div>
+        <button class="add-to-cart-btn">Add to Cart</button>
+      </div>
+
+      <!-- 10. Garlic Sev -->
+      <div class="product-card"
+        data-name="Garlic Sev"
+        data-price="55"
+        data-weight="200g"
+        data-image="images/garlic-sev.jpg">
+        <button class="wishlist-btn">♡</button>
+        <img src="images/garlic-sev.jpg" alt="Garlic Sev">
+        <h3>Garlic Sev</h3>
+        <div class="weight">200g</div>
+        <div class="price">₹55</div>
+        <button class="add-to-cart-btn">Add to Cart</button>
+      </div>
+
+      <!-- 11. Plain Papdi -->
+      <div class="product-card"
+        data-name="Plain Papdi"
+        data-price="40"
+        data-weight="150g"
+        data-image="images/plain-papdi.jpg">
+        <button class="wishlist-btn">♡</button>
+        <img src="images/plain-papdi.jpg" alt="Plain Papdi">
+        <h3>Plain Papdi</h3>
+        <div class="weight">150g</div>
+        <div class="price">₹40</div>
+        <button class="add-to-cart-btn">Add to Cart</button>
+      </div>
+
+      <!-- 12. Masala Papdi -->
+      <div class="product-card"
+        data-name="Masala Papdi"
+        data-price="45"
+        data-weight="150g"
+        data-image="images/masala-papdi.jpg">
+        <button class="wishlist-btn">♡</button>
+        <img src="images/masala-papdi.jpg" alt="Masala Papdi">
+        <h3>Masala Papdi</h3>
+        <div class="weight">150g</div>
+        <div class="price">₹45</div>
+        <button class="add-to-cart-btn">Add to Cart</button>
+      </div>
+
+      <!-- 13. Bikaneri Bhujia -->
+      <div class="product-card"
+        data-name="Bikaneri Bhujia"
+        data-price="60"
+        data-weight="200g"
+        data-image="images/bikaneri-bhujia.jpg">
+        <button class="wishlist-btn">♡</button>
+        <img src="images/bikaneri-bhujia.jpg" alt="Bikaneri Bhujia">
+        <h3>Bikaneri Bhujia</h3>
+        <div class="weight">200g</div>
+        <div class="price">₹60</div>
+        <button class="add-to-cart-btn">Add to Cart</button>
+      </div>
+
+      <!-- 14. Punjabi Tadka Mixture -->
+      <div class="product-card"
+        data-name="Punjabi Tadka Mixture"
+        data-price="65"
+        data-weight="200g"
+        data-image="images/punjabi-tadka.jpg">
+        <button class="wishlist-btn">♡</button>
+        <img src="images/punjabi-tadka.jpg" alt="Punjabi Tadka Mixture">
+        <h3>Punjabi Tadka Mixture</h3>
+        <div class="weight">200g</div>
+        <div class="price">₹65</div>
+        <button class="add-to-cart-btn">Add to Cart</button>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2026 Vinayak Namkeen Store | All Rights Reserved</p>
+  </footer>
+
+  <script>
+    let cartItems = JSON.parse(localStorage.getItem("vinayakCart")) || [];
+    let wishlistItems = JSON.parse(localStorage.getItem("vinayakWishlist")) || [];
+
+    const cartCount = document.getElementById("cart-count");
+    const wishlistCount = document.getElementById("wishlist-count");
+
+    function saveData() {
+      localStorage.setItem("vinayakCart", JSON.stringify(cartItems));
+      localStorage.setItem("vinayakWishlist", JSON.stringify(wishlistItems));
+    }
+
+    function updateCounts() {
+      cartCount.textContent = cartItems.reduce((total, item) => total + item.quantity, 0);
+      wishlistCount.textContent = wishlistItems.length;
+    }
+
+    function addToCart(product) {
+      const existing = cartItems.find(item => item.name === product.name);
+      if (existing) {
+        existing.quantity++;
+      } else {
+        cartItems.push({ ...product, quantity: 1 });
+      }
+      saveData();
+      updateCounts();
+      alert(product.name + " added to cart!");
+    }
+
+    function renderProductHearts() {
+      document.querySelectorAll("#product-grid .product-card").forEach(card => {
+        const name = card.dataset.name;
+        const heart = card.querySelector(".wishlist-btn");
+        const exists = wishlistItems.some(item => item.name === name);
+        heart.textContent = exists ? "♥" : "♡";
+        heart.style.color = exists ? "#ff6161" : "#c2c2c2";
+      });
+    }
+
+    document.querySelectorAll("#product-grid .product-card").forEach(card => {
+      const product = {
+        name: card.dataset.name,
+        price: Number(card.dataset.price),
+        weight: card.dataset.weight,
+        image: card.dataset.image
+      };
+
+      card.querySelector(".add-to-cart-btn").addEventListener("click", () => {
+        addToCart(product);
+      });
+
+      card.querySelector(".wishlist-btn").addEventListener("click", () => {
+        const exists = wishlistItems.some(item => item.name === product.name);
+
+        if (exists) {
+          wishlistItems = wishlistItems.filter(item => item.name !== product.name);
+        } else {
+          wishlistItems.push(product);
+        }
+
+        saveData();
+        renderProductHearts();
+        updateCounts();
+      });
+    });
+
+    updateCounts();
+    renderProductHearts();
+  </script>
+</body>
+</html>

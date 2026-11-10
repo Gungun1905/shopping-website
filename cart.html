@@ -1,0 +1,379 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>My Shopping Cart - Vinayak Namkeen</title>
+
+  <style>
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f3f6;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #2874f0;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 5%;
+    }
+
+    .logo-area h1 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .logo-area p {
+      margin: 0;
+      font-size: 11px;
+      color: #ffde00;
+    }
+
+    .nav-icons a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .main-container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 25px auto;
+    }
+
+    h2 {
+      color: #333;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 10px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 25px;
+    }
+
+    .product-card {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .product-card img {
+      width: 170px;
+      height: 170px;
+      object-fit: contain;
+    }
+
+    .product-card h3 {
+      color: #212121;
+    }
+
+    .weight {
+      color: #878787;
+      margin-bottom: 10px;
+    }
+
+    .price {
+      color: #388e3c;
+      font-weight: bold;
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      padding: 11px;
+      border-radius: 4px;
+      color: white;
+      font-weight: bold;
+    }
+
+    .add-btn {
+      background: #ff9f00;
+      width: 100%;
+    }
+
+    .remove-btn {
+      background: #d9534f;
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .quantity {
+      margin: 12px 0;
+      font-weight: bold;
+    }
+
+    .quantity button {
+      background: #2874f0;
+      width: 32px;
+      padding: 7px;
+      margin: 0 8px;
+    }
+
+    .empty-msg {
+      color: #888;
+      font-style: italic;
+      grid-column: 1 / -1;
+    }
+
+    .cart-summary {
+      background: white;
+      padding: 22px;
+      margin-top: 30px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    #cart-total {
+      color: #388e3c;
+      font-size: 22px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 25px;
+      color: #2874f0;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #172337;
+      color: white;
+      margin-top: 40px;
+    }
+
+    @media(max-width: 600px) {
+
+      header {
+        padding: 12px 4%;
+      }
+
+      .logo-area h1 {
+        font-size: 17px;
+      }
+
+      .main-container {
+        width: 92%;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+
+  <!-- HEADER -->
+
+  <header>
+
+    <div class="logo-area">
+
+      <h1>Vinayak Namkeen</h1>
+
+      <p>Fresh, Crispy & Delicious Snacks!</p>
+
+    </div>
+
+    <div class="nav-icons">
+
+      <a href="index.html">← Continue Shopping</a>
+
+    </div>
+
+  </header>
+
+
+  <!-- CART CONTENT -->
+
+  <main class="main-container">
+
+    <h2>🛒 My Shopping Cart</h2>
+
+    <div class="product-grid" id="cart-grid">
+
+    </div>
+
+
+    <!-- TOTAL AMOUNT -->
+
+    <div class="cart-summary">
+
+      <span>Total Amount:</span>
+
+      <span id="cart-total">₹0</span>
+
+    </div>
+
+
+    <a href="index.html" class="back-link">
+      ← Back to Namkeen Bhandar
+    </a>
+
+  </main>
+
+
+  <footer>
+
+    <p>© 2026 Vinayak Namkeen Store | All Rights Reserved</p>
+
+  </footer>
+
+
+  <script>
+
+    // Get cart data from localStorage
+    let cartItems =
+      JSON.parse(localStorage.getItem("vinayakCart")) || [];
+
+
+    const cartGrid = document.getElementById("cart-grid");
+
+    const cartTotal = document.getElementById("cart-total");
+
+
+    // Display cart products
+    function renderCart() {
+
+      cartGrid.innerHTML = "";
+
+      let total = 0;
+
+
+      if (cartItems.length === 0) {
+
+        cartGrid.innerHTML =
+          '<p class="empty-msg">Your cart is empty. <a href="index.html">Start shopping</a>.</p>';
+
+      }
+
+
+      cartItems.forEach((product, index) => {
+
+        total += product.price * product.quantity;
+
+
+        const card = document.createElement("div");
+
+        card.className = "product-card";
+
+
+        card.innerHTML = `
+
+          <img src="${product.image}" alt="${product.name}">
+
+          <h3>${product.name}</h3>
+
+          <div class="weight">${product.weight}</div>
+
+          <div class="price">₹${product.price}</div>
+
+          <div class="quantity">
+
+            Quantity:
+
+            <button class="minus-btn">-</button>
+
+            ${product.quantity}
+
+            <button class="plus-btn">+</button>
+
+          </div>
+
+          <button class="remove-btn">Remove Product</button>
+
+        `;
+
+
+        // Increase quantity
+        card.querySelector(".plus-btn").onclick = () => {
+
+          cartItems[index].quantity++;
+
+          saveAndRender();
+
+        };
+
+
+        // Decrease quantity
+        card.querySelector(".minus-btn").onclick = () => {
+
+          cartItems[index].quantity--;
+
+          if (cartItems[index].quantity <= 0) {
+
+            cartItems.splice(index, 1);
+
+          }
+
+          saveAndRender();
+
+        };
+
+
+        // Remove product completely
+        card.querySelector(".remove-btn").onclick = () => {
+
+          cartItems.splice(index, 1);
+
+          saveAndRender();
+
+        };
+
+
+        cartGrid.appendChild(card);
+
+      });
+
+
+      // Update total amount
+      cartTotal.textContent = "₹" + total;
+
+    }
+
+
+    // Save cart and refresh display
+    function saveAndRender() {
+
+      localStorage.setItem(
+        "vinayakCart",
+        JSON.stringify(cartItems)
+      );
+
+      renderCart();
+
+    }
+
+
+    // Initial display
+    renderCart();
+
+  </script>
+
+</body>
+
+</html>

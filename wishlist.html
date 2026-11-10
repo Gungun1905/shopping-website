@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Wishlist - Vinayak Namkeen</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f3f6;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #2874f0;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 5%;
+    }
+
+    .logo-area h1 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .logo-area p {
+      margin: 0;
+      font-size: 11px;
+      color: #ffde00;
+    }
+
+    .nav-icons a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .main-container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 25px auto;
+    }
+
+    h2 {
+      color: #333;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 10px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 25px;
+    }
+
+    .product-card {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .product-card img {
+      width: 170px;
+      height: 170px;
+      object-fit: contain;
+    }
+
+    .product-card h3 {
+      color: #212121;
+    }
+
+    .weight {
+      color: #878787;
+      margin-bottom: 10px;
+    }
+
+    .price {
+      color: #388e3c;
+      font-weight: bold;
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      padding: 11px;
+      border-radius: 4px;
+      color: white;
+      font-weight: bold;
+      width: 100%;
+    }
+
+    .add-to-cart-btn {
+      background: #ff9f00;
+      margin-bottom: 8px;
+    }
+
+    .add-to-cart-btn:hover {
+      background: #fb641b;
+    }
+
+    .remove-btn {
+      background: #d9534f;
+    }
+
+    .remove-btn:hover {
+      background: #c9302c;
+    }
+
+    .empty-msg {
+      color: #888;
+      font-style: italic;
+      grid-column: 1 / -1;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 25px;
+      color: #2874f0;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #172337;
+      color: white;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo-area">
+      <h1>Vinayak Namkeen</h1>
+      <p>Fresh, Crispy & Delicious Snacks!</p>
+    </div>
+    <div class="nav-icons">
+      <a href="index.html">← Continue Shopping</a>
+    </div>
+  </header>
+
+  <!-- WISHLIST CONTENT -->
+  <main class="main-container">
+    <h2>❤️ My Wishlist</h2>
+
+    <div class="product-grid" id="wishlist-grid">
+      <!-- Wishlist items will load here dynamically -->
+    </div>
+
+    <a href="index.html" class="back-link">
+      ← Back to Namkeen Bhandar
+    </a>
+  </main>
+
+  <footer>
+    <p>© 2026 Vinayak Namkeen Store | All Rights Reserved</p>
+  </footer>
+
+  <script>
+    let wishlistItems = JSON.parse(localStorage.getItem("vinayakWishlist")) || [];
+    let cartItems = JSON.parse(localStorage.getItem("vinayakCart")) || [];
+
+    const wishlistGrid = document.getElementById("wishlist-grid");
+
+    function renderWishlist() {
+      wishlistGrid.innerHTML = "";
+
+      if (wishlistItems.length === 0) {
+        wishlistGrid.innerHTML = '<p class="empty-msg">Your wishlist is empty. <a href="index.html">Start shopping</a>.</p>';
+        return;
+      }
+
+      wishlistItems.forEach((product, index) => {
+        const card = document.createElement("div");
+        card.className = "product-card";
+
+        card.innerHTML = `
+          <img src="${product.image}" alt="${product.name}">
+          <h3>${product.name}</h3>
+          <div class="weight">${product.weight}</div>
+          <div class="price">₹${product.price}</div>
+          <button class="add-to-cart-btn">Add to Cart</button>
+          <button class="remove-btn">Remove Product</button>
+        `;
+
+        // Add to Cart from Wishlist
+        card.querySelector(".add-to-cart-btn").onclick = () => {
+          const existing = cartItems.find(item => item.name === product.name);
+          if (existing) {
+            existing.quantity++;
+          } else {
+            cartItems.push({ ...product, quantity: 1 });
+          }
+          localStorage.setItem("vinayakCart", JSON.stringify(cartItems));
+          alert(product.name + " added to cart! 🛒");
+        };
+
+        // Remove from Wishlist
+        card.querySelector(".remove-btn").onclick = () => {
+          wishlistItems.splice(index, 1);
+          localStorage.setItem("vinayakWishlist", JSON.stringify(wishlistItems));
+          renderWishlist();
+        };
+
+        wishlistGrid.appendChild(card);
+      });
+    }
+
+    renderWishlist();
+  </script>
+
+</body>
+</html>
